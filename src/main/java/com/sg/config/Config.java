@@ -38,7 +38,7 @@ public class Config extends WebMvcConfigurerAdapter{
     public DataSource getDataSource() throws ClassNotFoundException{
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl("jdbc:mysql://server:port/db");
-		dataSource.setUsername("username");
+		dataSource.setUsername("user");
 		dataSource.setPassword("password");
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         Properties connectionProperties = new Properties();

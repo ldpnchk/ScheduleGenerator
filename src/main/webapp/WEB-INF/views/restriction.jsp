@@ -78,7 +78,7 @@
 							<c:if test="${not empty restriction.periodtime}">
     							<td>${restriction.periodtime.number}</td>
 							</c:if>
-
+						<tr>
 							<td>
 								<a class="btn btn-xs btn-danger" href="<c:url value="/restriction/delete/${restriction.id}/" />">
 									<i class="glyphicon glyphicon-trash" aria-hidden="true"></i> <spring:message code="delete"/>
