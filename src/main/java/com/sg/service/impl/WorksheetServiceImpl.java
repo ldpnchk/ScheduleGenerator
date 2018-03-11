@@ -36,8 +36,8 @@ public class WorksheetServiceImpl implements WorksheetService {
 	}
 
 	@Override
-	public List<Worksheet> getAll() {
-		return worksheetRepository.getAll();
+	public List<Worksheet> getByUser(int userId) {
+		return worksheetRepository.getByUser(userId);
 	}
 
 }

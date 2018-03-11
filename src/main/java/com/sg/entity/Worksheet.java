@@ -4,6 +4,7 @@ public class Worksheet {
 	
 	private int id;
 	private String name;
+	private int userId;
 	
 	public Worksheet() {
 		
@@ -13,9 +14,10 @@ public class Worksheet {
 		this.id = id;
 	}
 
-	public Worksheet(int id, String name) {
+	public Worksheet(int id, String name, int userId) {
 		this.id = id;
 		this.name = name;
+		this.userId = userId;
 	}
 
 	public int getId() {
@@ -32,6 +34,14 @@ public class Worksheet {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	@Override

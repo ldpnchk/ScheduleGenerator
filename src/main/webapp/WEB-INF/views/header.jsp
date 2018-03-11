@@ -2,10 +2,15 @@
 <%request.setCharacterEncoding("UTF-8");%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<c:set var="context" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
-
 <html>
+
+<script type="text/javascript"> var context = '${pageContext.request.contextPath}';</script>
 <script>
 Array.prototype.contains = function ( needle ) {
 	   for (i in this) {

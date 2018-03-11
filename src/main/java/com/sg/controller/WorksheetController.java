@@ -5,6 +5,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,17 +45,22 @@ public class WorksheetController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/create/", method = RequestMethod.POST)
-    public int createWorksheet(@RequestParam String name){
+    public int createWorksheet(@RequestParam String name, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("id");
     	Worksheet worksheet = new Worksheet();
     	worksheet.setName(name);
+    	worksheet.setUserId(userId);
     	worksheetService.add(worksheet);
     	return worksheet.getId();
     }
 	
 	@ResponseBody
     @RequestMapping(value = "/update/", method = RequestMethod.POST)
-    public String updateWorkcheet(@RequestParam int id, @RequestParam String name){
-		Worksheet worksheet = new Worksheet(id, name);
+    public String updateWorkcheet(@RequestParam int id, @RequestParam String name, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("id");
+		Worksheet worksheet = new Worksheet(id, name, userId);
 		worksheetService.update(worksheet);
     	return "success";
     }

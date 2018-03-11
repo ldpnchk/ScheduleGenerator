@@ -11,6 +11,6 @@ public interface WorksheetService {
 	void delete(int idWorksheet);
 	
 	Worksheet getById(int idWorksheet);
-	List<Worksheet> getAll();
+	List<Worksheet> getByUser(int userId);
 
 }

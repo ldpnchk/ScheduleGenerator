@@ -1,2 +1,0 @@
-# ScheduleGenerator
-University scheduling service

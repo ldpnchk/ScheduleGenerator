@@ -20,7 +20,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages="com.sg")
 @EnableWebMvc
 public class Config extends WebMvcConfigurerAdapter{
-	
+/*	
 	@Bean
     public ViewResolver getViewResolver(){
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -53,7 +53,7 @@ public class Config extends WebMvcConfigurerAdapter{
     	JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 		return jdbcTemplate;
     }
-    
+*/    
     @Bean(name = "messageSource")
     public ResourceBundleMessageSource getMessageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();

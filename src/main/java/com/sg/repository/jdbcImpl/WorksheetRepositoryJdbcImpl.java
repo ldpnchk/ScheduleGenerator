@@ -20,11 +20,11 @@ import com.sg.repository.WorksheetRepository;
 @Repository
 public class WorksheetRepositoryJdbcImpl implements WorksheetRepository{
 	
-	private static final String SQL_ADD_WORKSHEET = "INSERT INTO worksheet (name) VALUES(?);";
+	private static final String SQL_ADD_WORKSHEET = "INSERT INTO worksheet (name, userId) VALUES(?, ?);";
 	private static final String SQL_UPDATE_WORKSHEET = "UPDATE worksheet SET name=? WHERE id=?;";
 	private static final String SQL_DELETE_WORKSHEET = "DELETE FROM worksheet WHERE id=?;";
 	private static final String SQL_GET_WORKSHEET_BY_ID = "SELECT * FROM worksheet WHERE id=?;";
-	private static final String SQL_GET_ALL_WORKSHEETS = "SELECT * FROM worksheet;";
+	private static final String SQL_GET_BY_USER = "SELECT * FROM worksheet WHERE userId=?;";
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -38,6 +38,7 @@ public class WorksheetRepositoryJdbcImpl implements WorksheetRepository{
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement ps = con.prepareStatement(SQL_ADD_WORKSHEET, new String[] { "id" });
 				ps.setString(1, worksheet.getName());
+				ps.setInt(2, worksheet.getUserId());
 				return ps;
 			}
 			
@@ -62,8 +63,9 @@ public class WorksheetRepositoryJdbcImpl implements WorksheetRepository{
 	}
 	
 	@Override
-	public List<Worksheet> getAll() {
-		return jdbcTemplate.query(SQL_GET_ALL_WORKSHEETS, new WorksheetMapper());
+	public List<Worksheet> getByUser(int userId) {
+		List<Worksheet> worksheets = jdbcTemplate.query(SQL_GET_BY_USER, new WorksheetMapper(), userId);
+		return worksheets;
 	}
 	
 	private static class WorksheetMapper implements RowMapper<Worksheet> {
