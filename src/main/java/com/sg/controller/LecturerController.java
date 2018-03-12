@@ -29,24 +29,25 @@ public class LecturerController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/create/", method = RequestMethod.POST)
-    public String createDiscipline(@RequestParam String name){
+	@RequestMapping(value = "/create/{wsId}", method = RequestMethod.POST)
+    public String createDiscipline(@RequestParam String name, @PathVariable int wsId){
     	Lecturer lecturer = new Lecturer();
     	lecturer.setName(name);
+    	lecturer.setWorksheetId(wsId);
     	lecturerService.add(lecturer);
     	return "success";
     }
 	
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteWorksheet(@PathVariable int id, Model model){
+    @RequestMapping(value = "/delete/{id}/{wsId}", method = RequestMethod.GET)
+    public String deleteWorksheet(@PathVariable int id, @PathVariable int wsId, Model model){
     	lecturerService.delete(id);
-    	model.addAttribute("lecturers", lecturerService.getAll());
+    	model.addAttribute("lecturers", lecturerService.getAllByWorksheet(wsId));
         return "lecturers";
     }
 	
-    @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
-    public String viewDiscipline(@PathVariable int id, Model model){
-    	List<Lecturer> lecturers = lecturerService.getAll();
+    @RequestMapping(value = "/view/{id}/{wsId}", method = RequestMethod.GET)
+    public String viewDiscipline(@PathVariable int id, @PathVariable int wsId, Model model){
+    	List<Lecturer> lecturers = lecturerService.getAllByWorksheet(wsId);
     	Lecturer lecturer = null;
     	for(Lecturer temp : lecturers){
     		if(temp.getId()==id){

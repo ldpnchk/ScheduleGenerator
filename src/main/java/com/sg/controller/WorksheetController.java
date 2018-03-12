@@ -81,8 +81,10 @@ public class WorksheetController {
     	for (Lesson l : lessons.keySet()){
     		result.add(new LessonTotal(l, lessons.get(l), findCondition(l.getId(), schedules)));
     	}
+    	System.out.println(result.size());
+    	System.out.println(specialtyService.getAllByWorksheet(id).size());
     	model.addAttribute("result", result);
-    	model.addAttribute("specs", specialtyService.getAll());
+    	model.addAttribute("specs", specialtyService.getAllByWorksheet(id));
         return "worksheet";
     }
     

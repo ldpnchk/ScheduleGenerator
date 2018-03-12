@@ -1,48 +1,27 @@
-INSERT INTO Lecturer(name) VALUES ("Варвара Павлюк");
-INSERT INTO Lecturer(name) VALUES ("Людмила Лещенко");
-INSERT INTO Lecturer(name) VALUES ("Оксана Ситник");
-INSERT INTO Lecturer(name) VALUES ("Любов Макаренко");
-INSERT INTO Lecturer(name) VALUES ("Наталія Король");
+INSERT INTO `Roles` (`id`, `role`) VALUES
+(1, 'ADMIN'),
+(2, 'USER');
 
-INSERT INTO Discipline(name) VALUES ("Основи дискретної математики");
-INSERT INTO Discipline(name) VALUES ("Основи математичного аналізу");
-INSERT INTO Discipline(name) VALUES ("Лінійна алгебра на геометрія");
-INSERT INTO Discipline(name) VALUES ("Алгебра і теорія чисел");
-INSERT INTO Discipline(name) VALUES ("Дискретна математика");
+INSERT INTO `Users` (`id`, `email`, `password`, `roleId`) VALUES
+  (1, 'serhii', '202cb962ac59075b964b07152d234b70', 1),
+  (2, 'lida', '202cb962ac59075b964b07152d234b70', 1);
 
-INSERT INTO Specialty(name) VALUES ("Програмна інженерія");
+INSERT INTO Worksheet(id, name, userId) VALUES (1, "ФІ", 1);
+INSERT INTO Worksheet(id, name, userId) VALUES (2, "ФЕН", 1);
 
-INSERT INTO Student(name, course, id_specialty) VALUES ("Вадим Іванчук", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Омелян Заєць", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Ілля Саєнко", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Віктор Кухар", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Альберт Фесенко", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Остап Левчук", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Петро Бурлака", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Всеволод Ткач", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Ігор Гончар", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Степан Рудь", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Айдер Миронюк", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Кузьма Чайка", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Яків Романчук", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Юхим Буряк", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Дем'ян Марчук", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Микола Черняк", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Мирослав Скиба", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Тарас Близнюк", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Панас Медвідь", 1, 1);
-INSERT INTO Student(name, course, id_specialty) VALUES ("Федір Стасюк", 1, 1);
+INSERT INTO Specialty(id, name, id_worksheet) VALUES (1, "МП Комп'ютерні науки", 1);
+INSERT INTO Specialty(id, name, id_worksheet) VALUES (2, "МП Програмна інженерія", 1);
 
-INSERT INTO Room_type(name) VALUES ("Стандартна");
-INSERT INTO Room_type(name) VALUES ("Комп'ютерна");
+INSERT INTO Room_type(id, name) VALUES (1, "Стандартна");
+INSERT INTO Room_type(id, name) VALUES (2, "Комп'ютерна");
 
-INSERT INTO Classroom(building, number, capacity, id_room_type) VALUES ("1", "101", 20, 1);
-INSERT INTO Classroom(building, number, capacity, id_room_type) VALUES ("1", "102", 20, 1);
-INSERT INTO Classroom(building, number, capacity, id_room_type) VALUES ("1", "103", 10, 1);
-INSERT INTO Classroom(building, number, capacity, id_room_type) VALUES ("1", "104", 10, 1);
-INSERT INTO Classroom(building, number, capacity, id_room_type) VALUES ("1", "105", 10, 1);
+INSERT INTO Classroom(id, building, number, capacity, id_room_type, id_worksheet) VALUES (1, "1", "101", 50, 1, 1);
+INSERT INTO Classroom(id, building, number, capacity, id_room_type, id_worksheet) VALUES (2, "1", "102", 50, 1, 1);
+INSERT INTO Classroom(id, building, number, capacity, id_room_type, id_worksheet) VALUES (3, "1", "103", 50, 1, 1);
+INSERT INTO Classroom(id, building, number, capacity, id_room_type, id_worksheet) VALUES (4, "1", "104", 50, 2, 1);
+INSERT INTO Classroom(id, building, number, capacity, id_room_type, id_worksheet) VALUES (5, "1", "105", 50, 2, 1);
 
-INSERT INTO Tool(name) VALUES ("Проектор");
+INSERT INTO Tool(id, name) VALUES (1, "Проектор");
 
 INSERT INTO Classroom_Tool(id_classroom, id_tool) VALUES (1, 1);
 INSERT INTO Classroom_Tool(id_classroom, id_tool) VALUES (3, 1);

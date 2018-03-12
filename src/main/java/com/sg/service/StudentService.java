@@ -10,7 +10,7 @@ public interface StudentService {
 	void update(Student student);
 	void delete(int idStudent);
 	
-	List<Student> getAll();
+	List<Student> getAllByWorksheet(int worksheet_id);
 	List<Student> getAllByDiscipline(int idDiscipline);
 	List<Student> getAllByCourseAndSpecialty(int course, int idSpecialty);
 	List<Student> getNotEnrolledStudentsByDisciplineAndCourseAndSpecialty(int course, int idSpecialty, int idDiscipline);

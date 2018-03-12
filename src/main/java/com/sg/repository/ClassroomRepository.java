@@ -6,6 +6,6 @@ import com.sg.entity.Classroom;
 
 public interface ClassroomRepository {
 	
-	List<Classroom> getAllWithTools();
+	List<Classroom> getAllWithToolsByWorksheet(int id_worksheet);
 
 }

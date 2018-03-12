@@ -11,15 +11,12 @@ var allDisciplines = new Array();
 <div class="container-fluid padding-top-20">
 <div class="row">
 		<div class="col-md-1 col-md-offset-1">
-	    	<a href="<c:url value="/settings/" />">
-	  			<img src="<%=request.getContextPath()%>/resources/img/back.jpg"
-					style="width: 100%">
-			</a>
+	  		<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
 	    </div>
 <div class="col-md-8 main-panel padding-20">
 	<div class="row padding-bottom-20" >
 		<div class="col-md-10">
-			<font size="6" >Lecturers</font>
+			<font size="6" ><spring:message code="lecturers"/></font>
 		</div>
 		<div class="col-md-2">
 			<div style="padding-left: 45px;">
@@ -45,7 +42,7 @@ var allDisciplines = new Array();
 									<spring:message code="discipline.manage"/></a>
 					</td>
 					<td>								
-						<a class="btn btn-xs btn-danger" href="<c:url value="/lecturer/delete/${lecturer.id}/" />">
+						<a class="btn btn-xs btn-danger" href="<c:url value="/lecturer/delete/${lecturer.id}/${wsId}" />">
 							<i class="glyphicon glyphicon-trash" aria-hidden="true"></i> <spring:message code="delete"/>
 						</a>
 					</td>
@@ -75,7 +72,7 @@ var allDisciplines = new Array();
 		          	
 		      		<div class="modal-footer">
 		       			<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="cancel"/></button>
-		        		<button type="button" class="btn btn-success" onclick="addLecturer();"><spring:message code="add"/></button>
+		        		<button type="button" class="btn btn-success" onclick="addLecturer(${wsId});"><spring:message code="add"/></button>
 		      		</div>
 		    	</form>
 			</div>
@@ -124,7 +121,7 @@ var allDisciplines = new Array();
 <script>
 $('#lecturersTable').DataTable(default_options);
 
-function addLecturer(){
+function addLecturer(wsId){
 
 	
 	var name = $('#newLecturerName').val();
@@ -134,7 +131,7 @@ function addLecturer(){
 		$('addLecturerModal').modal('hide');
 
 		$.ajax({
-			url: getContextPath() + "/lecturer/create/",
+			url: getContextPath() + "/lecturer/create/" + wsId,
 	    	data: {
 	        	name: name
 	    	},

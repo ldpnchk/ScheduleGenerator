@@ -35,8 +35,8 @@ public class RestrictionController {
 	private PeriodtimeService periodtimeService;
 	
 	@ResponseBody
-	@RequestMapping(value = "/create/", method = RequestMethod.POST)
-    public String createLesson(@RequestParam int disc_id, @RequestParam int lect_id, @RequestParam int class_id, @RequestParam int day_id, @RequestParam int period_id, @RequestParam int selection){
+	@RequestMapping(value = "/create/{wsId}", method = RequestMethod.POST)
+    public String createLesson(@RequestParam int disc_id, @RequestParam int lect_id, @RequestParam int class_id, @RequestParam int day_id, @RequestParam int period_id, @RequestParam int selection, @PathVariable int wsId){
 		Restriction restriction = new Restriction();
 		if (disc_id != 0){
 			restriction.setDiscipline(new Discipline(disc_id));
@@ -59,6 +59,7 @@ public class RestrictionController {
 		else{
 			restriction.setSelection(false);
 		}
+		restriction.setWorksheetId(wsId);
 		restrictionService.add(restriction);
     	return "success";
     }
@@ -70,14 +71,15 @@ public class RestrictionController {
         return "success";
     }
 	
-    @RequestMapping(value = "/view/", method = RequestMethod.GET)
-    public String viewRestriction(Model model){
-    	model.addAttribute("restrictions", restrictionService.getAll());
-    	model.addAttribute("disciplines", disciplineService.getAll());
-    	model.addAttribute("lecturers", lecturerService.getAll());
-    	model.addAttribute("classrooms", classroomService.getAllWithTools());
+    @RequestMapping(value = "/view/{wsId}", method = RequestMethod.GET)
+    public String viewRestriction(Model model, @PathVariable int wsId){
+    	model.addAttribute("restrictions", restrictionService.getAllByWorksheet(wsId));
+    	model.addAttribute("disciplines", disciplineService.getAllByWorksheet(wsId));
+    	model.addAttribute("lecturers", lecturerService.getAllByWorksheet(wsId));
+    	model.addAttribute("classrooms", classroomService.getAllWithToolsByWorksheet(wsId));
     	model.addAttribute("daytimes", daytimeService.getAll());
     	model.addAttribute("periodtimes", periodtimeService.getAll());
+    	model.addAttribute("wsId", wsId);
         return "restriction";
     }
     

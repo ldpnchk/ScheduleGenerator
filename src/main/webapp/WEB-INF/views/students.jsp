@@ -10,12 +10,9 @@ var allDisciplines = new Array();
 </script>
 <div class="container-fluid padding-top-20">
 <div class="row">
-		<div class="col-md-1 col-md-offset-1">
-	    	<a href="<c:url value="/settings/" />">
-	  			<img src="<%=request.getContextPath()%>/resources/img/back.jpg"
-					style="width: 100%">
-			</a>
-	    </div>
+<div class="col-md-1 col-md-offset-1">
+	<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
+</div>
 <div class="col-md-8 main-panel padding-20">
 	<div class="row padding-bottom-20" >
 		<div class="col-md-10">
@@ -63,13 +60,13 @@ var allDisciplines = new Array();
 		    <div class="modal-content">
 		    	<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        	<h4 class="modal-title" id="myModalLabel"><spring:message code="add"/></h4>
+		        	<h4 class="modal-title" id="myModalLabel"><spring:message code="add.Group"/></h4>
 		      	</div>
 		     	<form>
 		        	<div class="modal-body">
 						<div class="form-group">
 							<label for="name"><spring:message code="name"/></label>
-					    	<input type="text" maxlength="255" class="form-control" name="name" id="newStudentName" placeholder="Enter student name"/>
+					    	<input type="text" maxlength="255" class="form-control" name="name" id="newStudentName" placeholder="Enter group name"/>
 							
 							 <div class="form-group">
 							  <label for="year"><spring:message code="year"/></label>
@@ -98,7 +95,7 @@ var allDisciplines = new Array();
 		          	
 		      		<div class="modal-footer">
 		       			<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="cancel"/></button>
-		        		<button type="button" class="btn btn-success" onclick="addStudent();"><spring:message code="create"/></button>
+		        		<button type="button" class="btn btn-success" onclick="addStudent(${wsId});"><spring:message code="create"/></button>
 		      		</div>
 		    	</form>
 			</div>
@@ -146,7 +143,7 @@ var allDisciplines = new Array();
 <script>
 $('#studentsTable').DataTable(default_options);
 
-function addStudent(){
+function addStudent(wsId){
 
 	
 	var name = $('#newStudentName').val();
@@ -158,7 +155,7 @@ function addStudent(){
 		$('#createStudentModal').modal('hide');
 
 		$.ajax({
-			url: getContextPath() + "/student/create/",
+			url: getContextPath() + "/student/create/" + wsId,
 	    	data: {
 	        	name: name,
 	        	year: year,

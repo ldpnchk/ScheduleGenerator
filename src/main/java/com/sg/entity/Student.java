@@ -6,6 +6,7 @@ public class Student {
 	private String name;
 	private int year;
 	private Specialty specialty;
+	private int worksheet_id;
 	
 	public Student() {
 
@@ -52,6 +53,14 @@ public class Student {
 
 	public void setSpecialty(Specialty specialty) {
 		this.specialty = specialty;
+	}
+	
+	public int getWorksheetId() {
+		return worksheet_id;
+	}
+	
+	public void setWorksheetId(int worksheet_id) {
+		this.worksheet_id = worksheet_id;
 	}
 	
 	@Override

@@ -3,10 +3,7 @@
 	<div class="row">
 	
 		<div class="col-md-1 col-md-offset-1">
-	    	<a href="<c:url value="/" />">
-	  			<img src="<%=request.getContextPath()%>/resources/img/back.jpg"
-					style="width: 100%">
-			</a>
+	  		<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
 	    </div>
 
 		<div class="col-md-8 main-panel padding-bottom-20 padding-left-20 padding-right-20">
@@ -39,10 +36,36 @@
 			<div class="row padding-20 panel-center">
 				<button type="button" class="btn btn-success "
 					data-toggle="modal" data-target="#createLessonModal"
-					id="createLessonButton" onclick="getData();" >
+					id="createLessonButton" onclick="getData(${worksheet.id});" >
 					<i class="fa fa-plus-circle" aria-hidden="true"></i>
 					<spring:message code="lesson.create"/>
 				</button>
+				<button type="button" class="btn btn-success "
+					data-toggle="modal" data-target="#addClassroom"
+					id="addClassroom" onclick="addClassroom();" >
+					<i class="fa fa-plus-circle" aria-hidden="true"></i>
+					<spring:message code="addClassroom"/>
+				</button>
+				<button type="button" class="btn btn-success "
+					data-toggle="modal" data-target="addSpec"
+					id="addSpec" onclick="addSpec();" >
+					<i class="fa fa-plus-circle" aria-hidden="true"></i>
+					<spring:message code="addSpec"/>
+				</button>
+				
+				<a href="<c:url value="/settings/${worksheet.id}"/>" >
+					<button type="button" class="btn btn-success ">
+						<span class="glyphicon glyphicon-cog"> </span>
+						<spring:message code="settings"/>
+					</button>
+				</a>
+				<a href="<c:url value="/restriction/view/${worksheet.id}"/>" >
+					<button type="button" class="btn btn-success ">
+						<span class="glyphicon glyphicon-alert"> </span>
+						<spring:message code="restrictions"/>
+					</button>
+				</a>
+				
 			</div>
 			<table id="lessonsTable" class="table table-striped table-hover table-bordered" class="width-100p">
 				<thead class="panel-center">
@@ -347,10 +370,10 @@ function deleteWorksheet() {
 	});
 }
 
-function getData(){
+function getData(wsId){
 	if (!isDataInitialized){
 		$('#loadingModal').modal('show');
-		getDisciplines();
+		getDisciplines(wsId);
 		getRoomTypes();
 		getTools();
 		isDataInitialized = true;
@@ -358,12 +381,12 @@ function getData(){
 	}
 }
 
-function getDisciplines(){
+function getDisciplines(wsId){
 	
 	$.ajax({
 		cache: false,
 		timeout: 60000, 
-		url: getContextPath() + "/discipline/getAll/",
+		url: getContextPath() + "/discipline/getAll/" + wsId,
 		method: 'POST',       
 		contentType: "application/json; charset=utf-8",
 		dataType: "json"

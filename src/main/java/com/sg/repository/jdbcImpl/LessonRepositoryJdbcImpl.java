@@ -39,7 +39,7 @@ public class LessonRepositoryJdbcImpl implements LessonRepository {
 			+ "INNER JOIN discipline ON lesson.id_discipline=discipline.id "
 			+ "INNER JOIN lecturer ON lesson.id_lecturer=lecturer.id "
 			+ "INNER JOIN lesson_student ON lesson.id=lesson_student.id_lesson "
-			+ "WHERE id_worksheet=? GROUP BY lesson.id;";
+			+ "WHERE lesson.id_worksheet=? GROUP BY lesson.id;";
 	private static final String SQL_GET_ALL_LESSONS_BY_WORKSHEET = "SELECT lesson.id, "
 			+ "discipline.id AS discipline_id, lecturer.id AS lecturer_id, "
 			+ "lesson_student.id_student AS student_id, room_type.id AS room_type_id, "
@@ -49,7 +49,7 @@ public class LessonRepositoryJdbcImpl implements LessonRepository {
 			+ "INNER JOIN room_type ON lesson.id_room_type=room_type.id "
 			+ "LEFT JOIN lesson_student ON lesson.id=lesson_student.id_lesson "
 			+ "LEFT JOIN lesson_tool ON lesson.id=lesson_tool.id_lesson "
-			+ "WHERE id_worksheet=?";
+			+ "WHERE lesson.id_worksheet=?";
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -113,10 +113,10 @@ public class LessonRepositoryJdbcImpl implements LessonRepository {
 			Lesson lesson = new Lesson();
 			lesson.setId(rs.getInt("id_lesson"));
 			lesson.setName(rs.getString("name"));
-			lesson.setId(rs.getInt("id_worksheet"));
-			lesson.setId(rs.getInt("id_discipline"));
-			lesson.setId(rs.getInt("id_lecturer"));
-			lesson.setId(rs.getInt("id_type"));
+			//lesson.setId(rs.getInt("id_worksheet"));
+			//lesson.setId(rs.getInt("id_discipline"));
+			//lesson.setId(rs.getInt("id_lecturer"));
+			//lesson.setId(rs.getInt("id_type"));
 			return lesson;
 		}
 

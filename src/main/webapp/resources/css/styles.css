@@ -9,12 +9,12 @@ a {
 }
 
 .glyphicon.glyphicon-cog {
-    font-size: 50px;
-    color: light-blue;
+    font-size: 15px;
+    color: blue;
 }
 
 .glyphicon.glyphicon-alert {
-    font-size: 50px;
+    font-size: 15px;
     color: yellow;
 }
 

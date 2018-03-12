@@ -14,10 +14,15 @@ public class ClassroomServiceImpl implements ClassroomService {
 	
 	@Autowired
 	private ClassroomRepository classroomRepository;
-
+	
 	@Override
-	public List<Classroom> getAllWithTools() {
-		return classroomRepository.getAllWithTools();
+	public void addClassroom(Classroom classroom) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public List<Classroom> getAllWithToolsByWorksheet(int id_worksheet) {
+		return classroomRepository.getAllWithToolsByWorksheet(id_worksheet);
 	}
 
 }

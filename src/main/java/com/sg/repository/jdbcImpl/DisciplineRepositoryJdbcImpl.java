@@ -20,7 +20,7 @@ import com.sg.repository.DisciplineRepository;
 @Repository
 public class DisciplineRepositoryJdbcImpl implements DisciplineRepository{
 	
-	private static final String SQL_ADD_DISCIPLINE = "INSERT INTO discipline (name) VALUES (?);";
+	private static final String SQL_ADD_DISCIPLINE = "INSERT INTO discipline (name, id_worksheet) VALUES (?, ?);";
 	private static final String SQL_UPDATE_DISCIPLINE = "UPDATE discipline SET name=? WHERE id=?;";
 	private static final String SQL_DELETE_DISCIPLINE = "DELETE FROM discipline WHERE id=?;";
 	private static final String SQL_ADD_LECTURER = "INSERT INTO discipline_lecturer (id_discipline, id_lecturer) VALUES (?, ?);";
@@ -29,7 +29,7 @@ public class DisciplineRepositoryJdbcImpl implements DisciplineRepository{
 	private static final String SQL_REMOVE_STUDENT = "DELETE FROM discipline_student WHERE id_discipline=? AND id_student=?;";
 	private static final String SQL_GET_ALL_BY_STUDENT = "SELECT * FROM discipline INNER JOIN discipline_student ON discipline.id=discipline_student.id_discipline WHERE discipline_student.id_student=? ORDER BY discipline.name ;";
 	private static final String SQL_GET_ALL_BY_LECTURER = "SELECT * FROM discipline INNER JOIN discipline_lecturer ON discipline.id=discipline_lecturer.id_discipline WHERE discipline_lecturer.id_lecturer=? ORDER BY discipline.name;";
-	private static final String SQL_GET_ALL_DISCIPLINES = "SELECT * FROM discipline ORDER BY discipline.name;";
+	private static final String SQL_GET_ALL_DISCIPLINES = "SELECT * FROM discipline WHERE id_worksheet = ? ORDER BY discipline.name;";
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -42,6 +42,7 @@ public class DisciplineRepositoryJdbcImpl implements DisciplineRepository{
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement ps = con.prepareStatement(SQL_ADD_DISCIPLINE, new String[] { "id" });
 				ps.setString(1, discipline.getName());
+				ps.setInt(2, discipline.getWorksheetId());
 				return ps;
 			}
 			
@@ -90,8 +91,8 @@ public class DisciplineRepositoryJdbcImpl implements DisciplineRepository{
 	}
 
 	@Override
-	public List<Discipline> getAll() {
-		return jdbcTemplate.query(SQL_GET_ALL_DISCIPLINES, new DisciplineMapper());
+	public List<Discipline> getAllByWorksheet(int id_worksheet) {
+		return jdbcTemplate.query(SQL_GET_ALL_DISCIPLINES, new DisciplineMapper(), id_worksheet);
 	}
 	
 	private static class DisciplineMapper implements RowMapper<Discipline> {

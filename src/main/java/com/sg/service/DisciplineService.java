@@ -17,6 +17,6 @@ public interface DisciplineService {
 	
 	List<Discipline> getAllByLecturer(int idLecturer);
 	List<Discipline> getAllByStudent(int idStudent);
-	List<Discipline> getAll();
+	List<Discipline> getAllByWorksheet(int id_worksheet);
 
 }

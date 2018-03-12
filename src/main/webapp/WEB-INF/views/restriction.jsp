@@ -3,10 +3,7 @@
 	<div class="row">
 	
 		<div class="col-md-1 col-md-offset-1">
-	    	<a href="<c:url value="/" />">
-	  			<img src="<%=request.getContextPath()%>/resources/img/back.jpg"
-					style="width: 100%">
-			</a>
+	  		<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
 	    </div>
 	
 		<div class="col-md-8 main-panel padding-bottom-20 padding-left-20 padding-right-20">
@@ -78,7 +75,7 @@
 							<c:if test="${not empty restriction.periodtime}">
     							<td>${restriction.periodtime.number}</td>
 							</c:if>
-						<tr>
+							
 							<td>
 								<a class="btn btn-xs btn-danger" href="<c:url value="/restriction/delete/${restriction.id}/" />">
 									<i class="glyphicon glyphicon-trash" aria-hidden="true"></i> <spring:message code="delete"/>
@@ -172,7 +169,7 @@
 				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="cancel"/></button>
-					<button type="button" class="btn btn-success" onclick="createRestriction();"><spring:message code="create"/></button>
+					<button type="button" class="btn btn-success" onclick="createRestriction(${wsId});"><spring:message code="create"/></button>
 				</div>
 			</form>
 		</div>
@@ -203,7 +200,7 @@
 
 $('#restrictionsTable').DataTable(default_options);
 
-function createRestriction(){
+function createRestriction(wsId){
 	
 	var disc_id;
 	if (document.getElementById("select-disc").value == ''){
@@ -248,7 +245,7 @@ function createRestriction(){
 	var selection = $('input[name=optradio]:checked').val();
 	
 	$.ajax({
-	    url: getContextPath() + "/restriction/create/",
+	    url: getContextPath() + "/restriction/create/" + wsId,
 	    data: {
 	    	disc_id: disc_id, 
 	    	lect_id: lect_id,

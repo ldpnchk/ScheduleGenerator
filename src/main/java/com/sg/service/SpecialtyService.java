@@ -6,7 +6,8 @@ import com.sg.entity.Specialty;
 
 public interface SpecialtyService {
 	
+	void addNewSpecialty(Specialty s);
 	Specialty getById(int idSpecialty);
-	List<Specialty> getAll();
+	List<Specialty> getAllByWorksheet(int id_worksheet);
 
 }

@@ -4,6 +4,7 @@ public class Discipline {
 	
 	private int id;
 	private String name;
+	private int worksheet_id;
 	
 	public Discipline() {
 		
@@ -32,6 +33,14 @@ public class Discipline {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public int getWorksheetId() {
+		return worksheet_id;
+	}
+	
+	public void setWorksheetId(int worksheet_id) {
+		this.worksheet_id = worksheet_id;
 	}
 
 	@Override

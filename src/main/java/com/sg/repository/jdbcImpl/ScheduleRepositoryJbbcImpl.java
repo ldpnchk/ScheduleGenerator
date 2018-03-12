@@ -25,7 +25,7 @@ public class ScheduleRepositoryJbbcImpl implements ScheduleRepository{
 			+ "INNER JOIN lesson ON schedule.id_lesson=lesson.id "
 			+ "INNER JOIN classroom ON schedule.id_classroom=classroom.id "
 			+ "INNER JOIN daytime ON schedule.id_daytime=daytime.id "
-			+ "INNER JOIN periodtime ON schedule.id_periodtime=periodtime.id WHERE id_worksheet=?;";
+			+ "INNER JOIN periodtime ON schedule.id_periodtime=periodtime.id WHERE lesson.id_worksheet=?;";
 	private static final String SQL_GET_ALL_BY_COURSE_SPECIALTY_WORKSHEET = "SELECT *, "
 			+ "lesson.name AS lesson_name, classroom.building AS classroom_building, "
 			+ "classroom.number AS classroom_number, daytime.name AS daytime_name, "

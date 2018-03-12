@@ -16,14 +16,14 @@ import com.sg.repository.SpecialtyRepository;
 public class SpecialtyRepositoryJdbcImpl implements SpecialtyRepository{
 	
 	private static final String SQL_GET_SPECIALTY_BY_ID = "SELECT * FROM specialty WHERE id=?;";
-	private static final String SQL_GET_ALL_SPECILTIES = "SELECT * FROM specialty";
+	private static final String SQL_GET_ALL_SPECILTIES = "SELECT * FROM specialty WHERE id_worksheet = ?;";
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<Specialty> getAll() {
-		return jdbcTemplate.query(SQL_GET_ALL_SPECILTIES, new SpecialtyMapper());
+	public List<Specialty> getAllByWorksheet(int id_worksheet) {
+		return jdbcTemplate.query(SQL_GET_ALL_SPECILTIES, new SpecialtyMapper(), id_worksheet);
 	}
 
 	@Override

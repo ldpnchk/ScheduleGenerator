@@ -34,9 +34,9 @@ public class StudentController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/getAllSpecialties", method = RequestMethod.POST, produces = "application/json")
-	public List<Specialty> getAllSpecialties() {
-		List<Specialty> specialties = specialtyService.getAll();
+	@RequestMapping(value = "/getAllSpecialties/{wsId}", method = RequestMethod.POST, produces = "application/json")
+	public List<Specialty> getAllSpecialties(@PathVariable int wsId) {
+		List<Specialty> specialties = specialtyService.getAllByWorksheet(wsId);
 		return specialties;
 	}
 	
@@ -55,12 +55,12 @@ public class StudentController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/create/", method = RequestMethod.POST)
-    public String createStudent(@RequestParam String name, @RequestParam int year, @RequestParam int specialtyId){
+	@RequestMapping(value = "/create/{wsId}", method = RequestMethod.POST)
+    public String createStudent(@PathVariable int wsId, @RequestParam String name, @RequestParam int year, @RequestParam int specialtyId){
     	Student student = new Student();
     	student.setName(name);
     	student.setYear(year);
-    	List<Specialty> specialties = specialtyService.getAll();
+    	List<Specialty> specialties = specialtyService.getAllByWorksheet(wsId);
     	Specialty specialty = null;
     	for (Specialty temp : specialties){
     		if(temp.getId()==specialtyId){

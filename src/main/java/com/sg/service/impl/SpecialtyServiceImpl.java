@@ -14,10 +14,15 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 	
 	@Autowired
 	private SpecialtyRepository specialtyRepository;
-
+	
 	@Override
-	public List<Specialty> getAll() {
-		return specialtyRepository.getAll();
+	public void addNewSpecialty(Specialty s) {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public List<Specialty> getAllByWorksheet(int id_worksheet) {
+		return specialtyRepository.getAllByWorksheet(id_worksheet);
 	}
 
 	@Override

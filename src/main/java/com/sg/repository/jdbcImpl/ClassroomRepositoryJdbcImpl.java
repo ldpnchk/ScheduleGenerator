@@ -23,14 +23,15 @@ public class ClassroomRepositoryJdbcImpl implements ClassroomRepository{
 	private static final String SQL_GET_ALL_CLASSROOMS_WITH_TOOLS = "SELECT classroom.id, classroom.building, "
 			+ "classroom.number, classroom.capacity, classroom.id_room_type, classroom_tool.id_tool "
 			+ "FROM classroom INNER JOIN room_type ON classroom.id_room_type = room_type.id "
-			+ "LEFT JOIN classroom_tool ON classroom.id=classroom_tool.id_classroom ";
+			+ "LEFT JOIN classroom_tool ON classroom.id=classroom_tool.id_classroom "
+			+ "WHERE classroom.id_worksheet = ?";
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<Classroom> getAllWithTools() {
-		return jdbcTemplate.query(SQL_GET_ALL_CLASSROOMS_WITH_TOOLS, new ClassroomExtractor());
+	public List<Classroom> getAllWithToolsByWorksheet(int id_worksheet) {
+		return jdbcTemplate.query(SQL_GET_ALL_CLASSROOMS_WITH_TOOLS, new ClassroomExtractor(), id_worksheet);
 	}
 	
 	private static class ClassroomMapper implements RowMapper<Classroom> {

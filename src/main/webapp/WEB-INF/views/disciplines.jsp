@@ -12,11 +12,8 @@ var disc = 0;
 <div class="container-fluid padding-top-20">
 	<div class="row">
 		<div class="col-md-1 col-md-offset-1">
-			<a href="<c:url value="/settings/" />"> <img
-				src="<%=request.getContextPath()%>/resources/img/back.jpg"
-				style="width: 100%">
-			</a>
-		</div>
+	  		<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
+	    </div>
 		<div class="col-md-8 main-panel padding-20">
 			<div class="row padding-bottom-20">
 				<div class="col-md-10">
@@ -66,7 +63,7 @@ var disc = 0;
 								</button>
 							</td>
 							<td><a class="btn btn-xs btn-danger"
-								href="<c:url value="/discipline/delete/${discipline.id}/" />">
+								href="<c:url value="/discipline/delete/${discipline.id}/${wsId}" />">
 									<i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
 									<spring:message code="delete"/>
 							</a></td>
@@ -104,7 +101,7 @@ var disc = 0;
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal"><spring:message code="cancel"/></button>
 								<button type="button" class="btn btn-success"
-									onclick="addDiscipline();"><spring:message code="create"/></button>
+									onclick="addDiscipline(${wsId});"><spring:message code="create"/></button>
 							</div>
 						</form>
 					</div>
@@ -223,7 +220,7 @@ var disc = 0;
 <script>
 $('#disciplinesTable').DataTable(default_options);
 
-function addDiscipline(){
+function addDiscipline(wsId){
 	
 	var name = $('#newDisciplineName').val();
 
@@ -232,7 +229,7 @@ function addDiscipline(){
 		$('#createDisciplineModal').modal('hide');
 
 		$.ajax({
-			url: getContextPath() + "/discipline/create/",
+			url: getContextPath() + "/discipline/create/" + wsId,
 	    	data: {
 	        	name: name
 	    	},

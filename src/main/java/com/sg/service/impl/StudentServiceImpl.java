@@ -31,8 +31,8 @@ public class StudentServiceImpl implements StudentService {
 	}
 	
 	@Override
-	public List<Student> getAll() {
-		return studentRepository.getAll();
+	public List<Student> getAllByWorksheet(int id_worksheet) {
+		return studentRepository.getAllByWorksheet(id_worksheet);
 	}
 	
 	@Override

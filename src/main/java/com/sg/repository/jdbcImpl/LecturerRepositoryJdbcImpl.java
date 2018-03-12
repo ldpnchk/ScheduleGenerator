@@ -20,10 +20,10 @@ import com.sg.repository.LecturerRepository;
 @Repository
 public class LecturerRepositoryJdbcImpl implements LecturerRepository{
 	
-	private static final String SQL_ADD_LECTURER = "INSERT INTO lecturer (name) VALUES (?);";
+	private static final String SQL_ADD_LECTURER = "INSERT INTO lecturer (name, id_worksheet) VALUES (?, ?);";
 	private static final String SQL_UPDATE_LECTURER = "UPDATE lecturer SET name=? WHERE id=?;";
 	private static final String SQL_DELETE_LECTURER = "DELETE FROM lecturer WHERE id=?;";
-	private static final String SQL_GET_ALL_LECTURERS = "SELECT * FROM lecturer ORDER BY lecturer.name;";
+	private static final String SQL_GET_ALL_LECTURERS = "SELECT * FROM lecturer WHERE id_worksheet = ? ORDER BY lecturer.name;";
 	private static final String SQL_GET_ALL_LECTURERS_BY_DISCIPLINE = "SELECT lecturer.id, lecturer.name FROM lecturer "
 			+ "INNER JOIN discipline_lecturer ON lecturer.id=discipline_lecturer.id_lecturer "
 			+ "WHERE discipline_lecturer.id_discipline=? ORDER BY lecturer.name;";
@@ -39,6 +39,7 @@ public class LecturerRepositoryJdbcImpl implements LecturerRepository{
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement ps = con.prepareStatement(SQL_ADD_LECTURER, new String[] { "id" });
 				ps.setString(1, lecturer.getName());
+				ps.setInt(2, lecturer.getWorksheetId());
 				return ps;
 			}
 			
@@ -58,8 +59,8 @@ public class LecturerRepositoryJdbcImpl implements LecturerRepository{
 	}
 	
 	@Override
-	public List<Lecturer> getAll() {
-		return jdbcTemplate.query(SQL_GET_ALL_LECTURERS, new LecturerMapper());
+	public List<Lecturer> getAllByWorksheet(int id_worksheet) {
+		return jdbcTemplate.query(SQL_GET_ALL_LECTURERS, new LecturerMapper(), id_worksheet);
 	}
 
 	@Override

@@ -26,8 +26,8 @@ public class RestrictionServiceImpl implements RestrictionService {
 	}
 
 	@Override
-	public List<Restriction> getAll() {
-		return restrictionRepository.getAll();
+	public List<Restriction> getAllByWorksheet(int id_worksheet) {
+		return restrictionRepository.getAllByWorksheet(id_worksheet);
 	}
 
 }

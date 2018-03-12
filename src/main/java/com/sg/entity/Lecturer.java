@@ -4,6 +4,7 @@ public class Lecturer {
 	
 	private int id;
 	private String name;
+	private int worksheet_id;
 	
 	public Lecturer(){
 		
@@ -33,7 +34,15 @@ public class Lecturer {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	public int getWorksheetId() {
+		return worksheet_id;
+	}
+	
+	public void setWorksheetId(int worksheet_id) {
+		this.worksheet_id = worksheet_id;
+	}
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;

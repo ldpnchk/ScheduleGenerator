@@ -10,7 +10,7 @@ public interface LecturerService {
 	void update(Lecturer lecturer);
 	void delete(int idLecturer);
 	
-	List<Lecturer> getAll();
+	List<Lecturer> getAllByWorksheet(int id_worksheet);
 	List<Lecturer> getAllByDiscipline(int idDiscipline);
 	
 }

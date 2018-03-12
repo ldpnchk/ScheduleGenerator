@@ -9,6 +9,6 @@ public interface RestrictionRepository {
 	void add(Restriction restriction);
 	void delete(int idRestriction);
 	
-	List<Restriction> getAll();
+	List<Restriction> getAllByWorksheet(int id_worksheet);
 
 }

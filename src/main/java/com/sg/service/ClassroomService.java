@@ -6,6 +6,7 @@ import com.sg.entity.Classroom;
 
 public interface ClassroomService {
 	
-	List<Classroom> getAllWithTools();
+	void addClassroom(Classroom classroom);
+	List<Classroom> getAllWithToolsByWorksheet(int id_worksheet);
 
 }

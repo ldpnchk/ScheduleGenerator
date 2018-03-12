@@ -31,8 +31,8 @@ public class LecturerServiceImpl implements LecturerService {
 	}
 
 	@Override
-	public List<Lecturer> getAll() {
-		return lecturerRepository.getAll();
+	public List<Lecturer> getAllByWorksheet(int id_worksheet) {
+		return lecturerRepository.getAllByWorksheet(id_worksheet);
 	}
 
 	@Override

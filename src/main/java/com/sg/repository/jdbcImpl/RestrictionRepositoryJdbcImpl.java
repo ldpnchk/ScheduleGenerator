@@ -23,8 +23,8 @@ import com.sg.repository.RestrictionRepository;
 public class RestrictionRepositoryJdbcImpl implements RestrictionRepository{
 	
 	private static final String SQL_ADD_RESTRICTION = "INSERT INTO restriction "
-			+ "(id_discipline, id_lecturer, id_classroom, id_daytime, id_periodtime, selection) "
-			+ "VALUES (?, ?, ?, ?, ?, ?)";
+			+ "(id_discipline, id_lecturer, id_classroom, id_daytime, id_periodtime, selection, id_worksheet) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 	private static final String SQL_DELETE_RESTRICTION = "DELETE FROM restriction WHERE id=?";
 	private static final String SQL_GET_ALL_RESTRICTIONS = "SELECT *, "
 			+ "discipline.name AS discipline_name, lecturer.name AS lecturer_name, "
@@ -35,7 +35,8 @@ public class RestrictionRepositoryJdbcImpl implements RestrictionRepository{
 			+ "LEFT JOIN lecturer ON restriction.id_lecturer=lecturer.id "
 			+ "LEFT JOIN classroom ON restriction.id_classroom=classroom.id "
 			+ "LEFT JOIN daytime ON restriction.id_daytime=daytime.id "
-			+ "LEFT JOIN periodtime ON restriction.id_periodtime=periodtime.id;";
+			+ "LEFT JOIN periodtime ON restriction.id_periodtime=periodtime.id "
+			+ "WHERE restriction.id_worksheet = ?;";
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -83,6 +84,7 @@ public class RestrictionRepositoryJdbcImpl implements RestrictionRepository{
 				else{
 					ps.setInt(6, 0);
 				}
+				ps.setInt(7, restriction.getWorksheetId());
 				return ps;
 			}
 			
@@ -96,8 +98,8 @@ public class RestrictionRepositoryJdbcImpl implements RestrictionRepository{
 	}
 
 	@Override
-	public List<Restriction> getAll() {
-		return jdbcTemplate.query(SQL_GET_ALL_RESTRICTIONS, new RestrictionExtractor());
+	public List<Restriction> getAllByWorksheet(int id_worksheet) {
+		return jdbcTemplate.query(SQL_GET_ALL_RESTRICTIONS, new RestrictionExtractor(), id_worksheet);
 	}
 	
 	private static class RestrictionExtractor implements ResultSetExtractor<List<Restriction>>{

@@ -10,7 +10,12 @@
 <!DOCTYPE html>
 <html>
 
-<script type="text/javascript"> var context = '${pageContext.request.contextPath}';</script>
+<script type="text/javascript"> 
+var context = '${pageContext.request.contextPath}';
+function goBack() {
+    window.history.back();
+}
+</script>
 <script>
 Array.prototype.contains = function ( needle ) {
 	   for (i in this) {
@@ -92,8 +97,7 @@ var default_options = {
 				</div>
 			</div>
 			<div class="col-md-2 padding-left-100">
-				<a href="<c:url value="/settings/"/>" ><span class="glyphicon glyphicon-cog"> </span></a>
-				<a href="<c:url value="/restriction/view/"/>" ><span class="glyphicon glyphicon-alert"> </span></a>
+				
 			</div>
 		</div>
 	</div>

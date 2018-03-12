@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sg.entity.Discipline;
 import com.sg.entity.Lecturer;
 import com.sg.entity.Student;
+import com.sg.entity.Worksheet;
 import com.sg.service.DisciplineService;
 import com.sg.service.LecturerService;
 import com.sg.service.StudentService;
@@ -46,25 +47,26 @@ public class DisciplineController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/getAll", method = RequestMethod.POST, produces = "application/json")
-	public List<Discipline> getDisciplines() {
-		List<Discipline> disciplines = disciplineService.getAll();
+	@RequestMapping(value = "/getAll/{worksheet_id}", method = RequestMethod.POST, produces = "application/json")
+	public List<Discipline> getDisciplines(@PathVariable int worksheet_id) {
+		List<Discipline> disciplines = disciplineService.getAllByWorksheet(worksheet_id);
 		return disciplines;
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/create/", method = RequestMethod.POST)
-    public String createDiscipline(@RequestParam String name){
+	@RequestMapping(value = "/create/{worksheet_id}", method = RequestMethod.POST)
+    public String createDiscipline(@RequestParam String name, @PathVariable int worksheet_id){
     	Discipline discipline = new Discipline();
     	discipline.setName(name);
+    	discipline.setWorksheetId(worksheet_id);
     	disciplineService.add(discipline);
     	return "success";
     }
 	
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteDiscipline(@PathVariable int id, Model model){
+    @RequestMapping(value = "/delete/{id}/{wsId}", method = RequestMethod.GET)
+    public String deleteDiscipline(@PathVariable int id, @PathVariable int wsId, Model model){
     	disciplineService.delete(id);
-    	model.addAttribute("disciplines", disciplineService.getAll());
+    	model.addAttribute("disciplines", disciplineService.getAllByWorksheet(wsId));
         return "disciplines";
     }
     

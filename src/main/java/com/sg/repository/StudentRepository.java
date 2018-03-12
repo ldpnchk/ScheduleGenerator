@@ -10,7 +10,7 @@ public interface StudentRepository {
 	void update(Student student);
 	void delete(int idStudent);
 	
-	List<Student> getAll();
+	List<Student> getAllByWorksheet(int id_worksheet);
 	List<Student> getAllByDiscipline(int idDiscipline);
 	List<Student> getAllByCourseAndSpecialty(int course, int idSpecialty);
 	List<Student> getNotEnrolledStudentsByDisciplineAndCourseAndSpecialty (int course, int idSpecialty, int idDiscipline);

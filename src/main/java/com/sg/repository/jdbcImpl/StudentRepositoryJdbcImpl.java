@@ -26,7 +26,9 @@ public class StudentRepositoryJdbcImpl implements StudentRepository{
 	private static final String SQL_DELETE_STUDENT = "DELETE FROM student WHERE id=?;";
 	private static final String SQL_GET_ALL_STUDENTS = "SELECT *, student.id AS student_id, "
 			+ "specialty.name AS specialty_name FROM student "
-			+ "INNER JOIN specialty ON student.id_specialty=specialty.id ORDER BY student.name;";
+			+ "INNER JOIN specialty ON student.id_specialty=specialty.id "
+			+ "WHERE specialty.id_worksheet = ? "
+			+ "ORDER BY student.name;";
 	private static final String SQL_GET_ALL_STUDENTS_BY_COURSE_AND_SPECIALTY = "SELECT *, "
 			+ "student.id AS student_id, specialty.name AS specialty_name FROM student "
 			+ "INNER JOIN specialty ON student.id_specialty=specialty.id "
@@ -69,8 +71,8 @@ public class StudentRepositoryJdbcImpl implements StudentRepository{
 	}
 	
 	@Override
-	public List<Student> getAll() {
-		return jdbcTemplate.query(SQL_GET_ALL_STUDENTS, new StudentWithSpecialtyMapper());
+	public List<Student> getAllByWorksheet(int id_worksheet) {
+		return jdbcTemplate.query(SQL_GET_ALL_STUDENTS, new StudentWithSpecialtyMapper(), id_worksheet);
 	}
 	
 	@Override

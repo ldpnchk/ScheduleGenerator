@@ -10,6 +10,7 @@ public class Classroom {
 	private int capacity;
 	private RoomType roomType;
 	private ArrayList<Tool> tools = new ArrayList<Tool>();
+	private int worksheet_id;
 	
 	public Classroom() {
 		
@@ -74,7 +75,15 @@ public class Classroom {
 	public void setTools(ArrayList<Tool> tools) {
 		this.tools = tools;
 	}
-
+	
+	public int getWorksheetId() {
+		return worksheet_id;
+	}
+	
+	public void setWorksheetId(int worksheet_id) {
+		this.worksheet_id = worksheet_id;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

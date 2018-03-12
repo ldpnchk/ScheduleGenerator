@@ -61,8 +61,8 @@ public class DisciplineServiceImpl implements DisciplineService {
 	}
 	
 	@Override
-	public List<Discipline> getAll() {
-		return disciplineRepository.getAll();
+	public List<Discipline> getAllByWorksheet(int id_worksheet) {
+		return disciplineRepository.getAllByWorksheet(id_worksheet);
 	}
 
 }

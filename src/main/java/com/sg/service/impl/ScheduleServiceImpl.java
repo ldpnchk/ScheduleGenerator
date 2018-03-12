@@ -37,10 +37,10 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public void generate(int idWorksheet) {
 		List<Lesson> lessons = lessonService.getAllByWorksheet(idWorksheet);
-		List<Classroom> classrooms = classroomService.getAllWithTools();
+		List<Classroom> classrooms = classroomService.getAllWithToolsByWorksheet(idWorksheet);
 		List<Daytime> daytimes = daytimeService.getAll();
 		List<Periodtime> periodtimes = periodtimeService.getAll();
-		List<Restriction> restrictions = restrictionService.getAll();
+		List<Restriction> restrictions = restrictionService.getAllByWorksheet(idWorksheet);
 
 		deleteAllByWorksheet(idWorksheet);
 		
