@@ -17,7 +17,7 @@ public class ClassroomServiceImpl implements ClassroomService {
 	
 	@Override
 	public void addClassroom(Classroom classroom) {
-		// TODO Auto-generated method stub
+		classroomRepository.addClassroom(classroom);
 	}
 	
 	@Override

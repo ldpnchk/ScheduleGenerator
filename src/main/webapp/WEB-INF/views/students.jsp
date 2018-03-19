@@ -11,7 +11,7 @@ var allDisciplines = new Array();
 <div class="container-fluid padding-top-20">
 <div class="row">
 <div class="col-md-1 col-md-offset-1">
-	<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
+	<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100px;height:auto;" onclick="goBack()">
 </div>
 <div class="col-md-8 main-panel padding-20">
 	<div class="row padding-bottom-20" >
@@ -65,9 +65,6 @@ var allDisciplines = new Array();
 		     	<form>
 		        	<div class="modal-body">
 						<div class="form-group">
-							<label for="name"><spring:message code="name"/></label>
-					    	<input type="text" maxlength="255" class="form-control" name="name" id="newStudentName" placeholder="Enter group name"/>
-							
 							 <div class="form-group">
 							  <label for="year"><spring:message code="year"/></label>
 							  <select class="form-control" id="year">
@@ -77,6 +74,19 @@ var allDisciplines = new Array();
 							    <option value="4">4</option>
 							    <option value="5">5</option>
 							    <option value="6">6</option>
+							  </select>
+							</div>
+							<div class="form-group">
+							  <label for="subGroup">Nomer group</label>
+							  <select class="form-control" id="subGroup">
+							    <option value="1">1</option>
+							    <option value="2">2</option>
+							    <option value="3">3</option>
+							    <option value="4">4</option>
+							    <option value="5">5</option>
+							    <option value="6">6</option>
+							    <option value="7">7</option>
+							    <option value="8">8</option>
 							  </select>
 							</div>
 							
@@ -146,11 +156,17 @@ $('#studentsTable').DataTable(default_options);
 function addStudent(wsId){
 
 	
-	var name = $('#newStudentName').val();
 	var year = $('#year').val();
 	var specialtyId = $('#specialty').val();
-
-	document.getElementById("newStudentName").value = "";
+	var names = $('#specialty option:selected').html().split(" ");
+	var name = "";
+	var subGroup = $('#subGroup').val();
+	names.forEach(function(item, i, arr) {
+		  name = name+item.charAt(0);
+	});
+	name = name.toUpperCase();
+	name = name +"-"+year+" "+subGroup;
+	
 	
 		$('#createStudentModal').modal('hide');
 

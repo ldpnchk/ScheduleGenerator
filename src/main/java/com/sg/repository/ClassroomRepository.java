@@ -8,4 +8,6 @@ public interface ClassroomRepository {
 	
 	List<Classroom> getAllWithToolsByWorksheet(int id_worksheet);
 
+	void addClassroom(Classroom classroom);
+
 }

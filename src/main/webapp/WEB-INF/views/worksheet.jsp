@@ -42,13 +42,13 @@
 				</button>
 				<button type="button" class="btn btn-success "
 					data-toggle="modal" data-target="#addClassroom"
-					id="addClassroom" onclick="addClassroom();" >
+					id="addClassroomButton"  >
 					<i class="fa fa-plus-circle" aria-hidden="true"></i>
 					<spring:message code="addClassroom"/>
 				</button>
 				<button type="button" class="btn btn-success "
-					data-toggle="modal" data-target="addSpec"
-					id="addSpec" onclick="addSpec();" >
+					data-toggle="modal" data-target="#addSpec"
+					id="addSpecButton"  >
 					<i class="fa fa-plus-circle" aria-hidden="true"></i>
 					<spring:message code="addSpec"/>
 				</button>
@@ -295,6 +295,81 @@
 		</div>
 	</div>
 </div>
+
+<!-- addClassroom Modal -->
+	<div class="modal fade" id="addClassroom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		    	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title" id="myModalLabel"><spring:message code="add.Classroom"/></h4>
+		      	</div>
+		     	<form>
+		        	<div class="modal-body">
+						<div class="form-group">
+							
+							<label for="building">nomer zdaniya</label>
+					    	<input type="text" maxlength="255" class="form-control" name="building" id="building" placeholder="Enter building number"/>
+							
+							<label for="newClassroomName">nomer auditorii</label>
+					    	<input type="text" maxlength="255" class="form-control" name="newClassroomName" id="newClassroomName" placeholder="Enter classroom number"/>
+							
+							<label for="capacity">nomer zdaniya</label>
+					    	<input type="number" class="form-control" name="capacity" id="capacity" placeholder="Enter capacity"/>
+							
+							<div class="form-group">
+							  <label for="type">Type</label>
+							  <select class="form-control" id="type">
+							    <option value="2">Komp</option>
+							    <option value="1">Standart</option>
+							  </select>
+							</div>
+							
+							<div class="form-group">
+							  <label for="tool">Obladnannya</label>
+							  <select class="form-control" id="tool">
+							    <option value="1">Yie</option>
+							    <option value="0">Nema</option>
+							  </select>
+							</div>
+						</div>
+		          	</div>
+		          	
+		      		<div class="modal-footer">
+		       			<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="cancel"/></button>
+		        		<button type="button" class="btn btn-success" onclick="addClassroom(${worksheet.id});"><spring:message code="create"/></button>
+		      		</div>
+		    	</form>
+			</div>
+		</div>
+	</div>
+	
+<!-- add Specialty Modal -->
+	<div class="modal fade" id="addSpec" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		    	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        	<h4 class="modal-title" id="myModalLabel"><spring:message code="add.Spec"/></h4>
+		      	</div>
+		     	<form>
+		        	<div class="modal-body">
+						<div class="form-group">
+							
+							<label for="nameSpec">Name</label>
+					    	<input type="text" maxlength="255" class="form-control" name="nameSpec" id="nameSpec" placeholder="Enter specialty name"/>
+							
+						</div>
+		          	</div>
+		          	
+		      		<div class="modal-footer">
+		       			<button type="button" class="btn btn-default" data-dismiss="modal"><spring:message code="cancel"/></button>
+		        		<button type="button" class="btn btn-success" onclick="addSpecialty(${worksheet.id});"><spring:message code="create"/></button>
+		      		</div>
+		    	</form>
+			</div>
+		</div>
+	</div>
 
 <!-- loadingModal -->
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -662,7 +737,62 @@ function getSchedule(){
 	
 }
 
+function addSpecialty(wsId){
+	var name = $('#nameSpec').val();
+		$.ajax({
+			url: context + "/worksheet/createSpeciality",
+	    	data: {
+	        	name: name,
+	        	wsId: wsId
+	    	},
+	    	type: "POST",
+	    	dataType : "text",
+			timeout: 60000
+		})
+		.done(function(id) {
+		    //location.reload();
+			$('#addSpec').modal('hide');
+		})
+		.fail(function() {
+			$('#networkErrorModal').modal('show');
+		});
+}
 
+function addClassroom(wsId){
+
+	var building = $('#building').val();
+	var numClassroom = $('#newClassroomName').val();
+	var capacity = $('#capacity').val();
+	var tool = $('#tool').val();
+	var type = $('#type').val();
+	
+	//alert(building +" "+ numClassroom +" "+ capacity +" "+ tool +" "+ type);
+	//document.getElementById("newStudentName").value = "";
+	
+
+		$.ajax({
+			url: context + "/worksheet/createClassroom",
+	    	data: {
+	        	building: building+"",
+	        	numClassroom: numClassroom+"",
+	        	tool: tool,
+	        	type: type,
+	        	capacity: capacity,
+	        	wsId: wsId
+	    	},
+	    	type: "POST",
+	    	dataType : "text",
+			timeout: 60000
+		})
+		.done(function(id) {
+		    //location.reload();
+			$('#addClassroom').modal('hide');
+		})
+		.fail(function() {
+			$('#networkErrorModal').modal('show');
+		});
+	
+}
 </script>
 
 <%@include file="footer.jsp"%>

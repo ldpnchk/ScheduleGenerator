@@ -17,7 +17,7 @@ public class SpecialtyServiceImpl implements SpecialtyService {
 	
 	@Override
 	public void addNewSpecialty(Specialty s) {
-		// TODO Auto-generated method stub
+		specialtyRepository.addNewSpecialty(s);
 	}
 	
 	@Override
