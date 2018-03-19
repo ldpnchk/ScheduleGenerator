@@ -1,8 +1,8 @@
 <%@include file="header.jsp"%>
 	<div class="row padding-top-10">
 		<div class="col-md-1 col-md-offset-1">
-	  		<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
-	    </div>
+			<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100px;height:auto;" onclick="goBack()">
+		</div>
 	    
 		<div class="col-md-8">
 			<div class="row">

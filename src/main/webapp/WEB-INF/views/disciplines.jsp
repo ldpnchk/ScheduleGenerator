@@ -12,8 +12,8 @@ var disc = 0;
 <div class="container-fluid padding-top-20">
 	<div class="row">
 		<div class="col-md-1 col-md-offset-1">
-	  		<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
-	    </div>
+			<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100px;height:auto;" onclick="goBack()">
+		</div>
 		<div class="col-md-8 main-panel padding-20">
 			<div class="row padding-bottom-20">
 				<div class="col-md-10">
@@ -303,7 +303,8 @@ function updateLecturer(disciplineId, lecturerId){
 			timeout: 15000
 		})
 		.done(function(id) {
-
+			$('#enrolledLecturers').empty();
+			$('#notEnrolledLecturers').empty();
 		})
 		.fail(function() {
 		});
@@ -315,6 +316,8 @@ function updateLecturer(disciplineId, lecturerId){
 			timeout: 60000
 		})
 		.done(function(id) {
+			$('#enrolledLecturers').empty();
+			$('#notEnrolledLecturers').empty();
 		})
 		.fail(function() {
 			$('#networkErrorModal').modal('show');
@@ -401,7 +404,8 @@ function updateStudent (disciplineId, studentId){
 			timeout: 60000
 		})
 		.done(function(id) {
-
+			$('#enrolledLecturers').empty();
+			$('#notEnrolledLecturers').empty();
 		})
 		.fail(function() {
 			$('#networkErrorModal').modal('show');

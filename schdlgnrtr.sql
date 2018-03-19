@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: den1.mysql6.gear.host
--- Время создания: Мар 12 2018 г., 22:10
+-- Время создания: Мар 19 2018 г., 23:17
 -- Версия сервера: 5.7.19-log
 -- Версия PHP: 7.0.22-0ubuntu0.16.04.1
 
@@ -46,7 +46,8 @@ INSERT INTO `classroom` (`id`, `building`, `number`, `capacity`, `id_room_type`,
 (2, '1', '102', 50, 1, 1),
 (3, '1', '103', 50, 1, 1),
 (4, '1', '104', 50, 2, 1),
-(5, '1', '105', 50, 2, 1);
+(5, '1', '105', 50, 2, 1),
+(6, '10', '3', 20, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -65,7 +66,8 @@ CREATE TABLE `classroom_tool` (
 
 INSERT INTO `classroom_tool` (`id_classroom`, `id_tool`) VALUES
 (1, 1),
-(3, 1);
+(4, 1),
+(6, 1);
 
 -- --------------------------------------------------------
 
@@ -106,9 +108,9 @@ CREATE TABLE `discipline` (
 --
 
 INSERT INTO `discipline` (`id`, `name`, `id_worksheet`) VALUES
-(1, 'Розподілені обичслення', 1),
-(2, 'Машинне начання', 1),
-(3, 'Гуманітарна дисципліна', 3);
+(1, 'Розподілені обчислення', 1),
+(2, 'Машинне навчання', 1),
+(3, 'Методи інформаційного пошуку', 1);
 
 -- --------------------------------------------------------
 
@@ -126,9 +128,9 @@ CREATE TABLE `discipline_lecturer` (
 --
 
 INSERT INTO `discipline_lecturer` (`id_discipline`, `id_lecturer`) VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+(2, 1),
+(3, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -146,8 +148,12 @@ CREATE TABLE `discipline_student` (
 --
 
 INSERT INTO `discipline_student` (`id_discipline`, `id_student`) VALUES
+(1, 1),
 (2, 1),
-(1, 2);
+(3, 1),
+(1, 3),
+(2, 3),
+(3, 3);
 
 -- --------------------------------------------------------
 
@@ -166,9 +172,8 @@ CREATE TABLE `lecturer` (
 --
 
 INSERT INTO `lecturer` (`id`, `name`, `id_worksheet`) VALUES
-(1, 'Семен Гороховський', 1),
-(2, 'Андрій Глибовець', 1),
-(3, 'Викладач з ФГН', 3);
+(1, 'Андрій Глибовець', 1),
+(2, 'Семен Гороховський', 1);
 
 -- --------------------------------------------------------
 
@@ -190,8 +195,11 @@ CREATE TABLE `lesson` (
 --
 
 INSERT INTO `lesson` (`id`, `name`, `id_worksheet`, `id_room_type`, `id_discipline`, `id_lecturer`) VALUES
-(2, 'РО лекція', 1, 1, 1, 1),
-(3, 'МН практика', 1, 2, 2, 2);
+(1, 'МН лекція', 1, 1, 2, 1),
+(2, 'МН практика', 1, 2, 2, 1),
+(3, 'МН практика', 1, 2, 2, 1),
+(4, 'РО лекція', 1, 1, 1, 2),
+(5, 'РО практика', 1, 2, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -209,8 +217,14 @@ CREATE TABLE `lesson_student` (
 --
 
 INSERT INTO `lesson_student` (`id_lesson`, `id_student`) VALUES
-(3, 1),
-(2, 2);
+(1, 1),
+(2, 1),
+(4, 1),
+(5, 1),
+(1, 3),
+(3, 3),
+(4, 3),
+(5, 3);
 
 -- --------------------------------------------------------
 
@@ -229,7 +243,9 @@ CREATE TABLE `lesson_tool` (
 --
 
 INSERT INTO `lesson_tool` (`id_lesson`, `id_tool`, `selection`) VALUES
-(2, 1, 1);
+(1, 1, 1),
+(4, 1, 1),
+(5, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -276,8 +292,8 @@ CREATE TABLE `restriction` (
 --
 
 INSERT INTO `restriction` (`id`, `id_discipline`, `id_lecturer`, `id_classroom`, `id_daytime`, `id_periodtime`, `selection`, `id_worksheet`) VALUES
-(1, 1, NULL, NULL, 5, NULL, 1, 1),
-(2, 2, NULL, NULL, 3, NULL, 0, 1);
+(1, NULL, 2, NULL, NULL, 1, 1, 1),
+(2, NULL, 1, NULL, 3, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -335,8 +351,11 @@ CREATE TABLE `schedule` (
 --
 
 INSERT INTO `schedule` (`id_lesson`, `id_classroom`, `id_daytime`, `id_periodtime`) VALUES
-(2, 3, 5, 4),
-(3, 4, 5, 3);
+(1, 1, 1, 2),
+(4, 1, 3, 1),
+(2, 5, 5, 3),
+(3, 5, 5, 2),
+(5, 6, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -355,8 +374,9 @@ CREATE TABLE `specialty` (
 --
 
 INSERT INTO `specialty` (`id`, `name`, `id_worksheet`) VALUES
-(1, 'МП Комп\'ютерні науки', 1),
-(2, 'МП Програмна інженерія', 1);
+(1, 'Комп\'ютерні науки', 1),
+(2, 'Програмна інженерія', 1),
+(3, 'Інформатика', 1);
 
 -- --------------------------------------------------------
 
@@ -376,8 +396,8 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`id`, `name`, `course`, `id_specialty`) VALUES
-(1, '1 група', 1, 1),
-(2, '1 група', 6, 2);
+(1, 'КН-5 1', 5, 1),
+(3, 'КН-5 2', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -416,7 +436,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `roleId`) VALUES
 (1, 'serhii', '202cb962ac59075b964b07152d234b70', 1),
-(2, 'lida', '202cb962ac59075b964b07152d234b70', 1);
+(2, 'lida', '202cb962ac59075b964b07152d234b70', 1),
+(3, 'kirill', '202cb962ac59075b964b07152d234b70', 1);
 
 -- --------------------------------------------------------
 
@@ -436,7 +457,7 @@ CREATE TABLE `worksheet` (
 
 INSERT INTO `worksheet` (`id`, `name`, `userId`) VALUES
 (1, 'ФІ', 1),
-(3, 'ФГН', 2);
+(2, 'ФЕН', 1);
 
 --
 -- Индексы сохранённых таблиц
@@ -566,6 +587,7 @@ ALTER TABLE `specialty`
 --
 ALTER TABLE `student`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
   ADD KEY `id_specialty` (`id_specialty`);
 
 --
@@ -597,7 +619,7 @@ ALTER TABLE `worksheet`
 -- AUTO_INCREMENT для таблицы `classroom`
 --
 ALTER TABLE `classroom`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT для таблицы `daytime`
 --
@@ -612,12 +634,12 @@ ALTER TABLE `discipline`
 -- AUTO_INCREMENT для таблицы `lecturer`
 --
 ALTER TABLE `lecturer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT для таблицы `lesson`
 --
 ALTER TABLE `lesson`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT для таблицы `periodtime`
 --
@@ -637,12 +659,12 @@ ALTER TABLE `room_type`
 -- AUTO_INCREMENT для таблицы `specialty`
 --
 ALTER TABLE `specialty`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT для таблицы `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT для таблицы `tool`
 --
@@ -652,12 +674,12 @@ ALTER TABLE `tool`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT для таблицы `worksheet`
 --
 ALTER TABLE `worksheet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --

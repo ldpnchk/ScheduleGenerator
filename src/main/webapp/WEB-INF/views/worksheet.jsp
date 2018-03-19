@@ -1,10 +1,9 @@
 <%@include file="header.jsp"%>
 <div class="container-fluid padding-top-20">
 	<div class="row">
-	
 		<div class="col-md-1 col-md-offset-1">
-	  		<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
-	    </div>
+			<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100px;height:auto;" onclick="goBack()">
+		</div>
 
 		<div class="col-md-8 main-panel padding-bottom-20 padding-left-20 padding-right-20">
 			<h1>
@@ -56,7 +55,7 @@
 				<a href="<c:url value="/settings/${worksheet.id}"/>" >
 					<button type="button" class="btn btn-success ">
 						<span class="glyphicon glyphicon-cog"> </span>
-						<spring:message code="settings"/>
+						<spring:message code="DisciplinesGroupsLecturers"/>
 					</button>
 				</a>
 				<a href="<c:url value="/restriction/view/${worksheet.id}"/>" >
@@ -302,34 +301,34 @@
 		    <div class="modal-content">
 		    	<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        	<h4 class="modal-title" id="myModalLabel"><spring:message code="add.Classroom"/></h4>
+		        	<h4 class="modal-title" id="myModalLabel"><spring:message code="addClassroom"/></h4>
 		      	</div>
 		     	<form>
 		        	<div class="modal-body">
 						<div class="form-group">
 							
-							<label for="building">nomer zdaniya</label>
+							<label for="building"><spring:message code="Building"/></label>
 					    	<input type="text" maxlength="255" class="form-control" name="building" id="building" placeholder="Enter building number"/>
 							
-							<label for="newClassroomName">nomer auditorii</label>
+							<label for="newClassroomName"><spring:message code="Room"/></label>
 					    	<input type="text" maxlength="255" class="form-control" name="newClassroomName" id="newClassroomName" placeholder="Enter classroom number"/>
 							
-							<label for="capacity">nomer zdaniya</label>
+							<label for="capacity"><spring:message code="Capacity"/></label>
 					    	<input type="number" class="form-control" name="capacity" id="capacity" placeholder="Enter capacity"/>
 							
 							<div class="form-group">
-							  <label for="type">Type</label>
+							  <label for="type"><spring:message code="Type"/></label>
 							  <select class="form-control" id="type">
-							    <option value="2">Komp</option>
-							    <option value="1">Standart</option>
+							  	<option value="1"><spring:message code="RegularRoom"/></option>
+							    <option value="2"><spring:message code="CompRoom"/></option>
 							  </select>
 							</div>
 							
 							<div class="form-group">
-							  <label for="tool">Obladnannya</label>
+							  <label for="tool"><spring:message code="Projector"/></label>
 							  <select class="form-control" id="tool">
-							    <option value="1">Yie</option>
-							    <option value="0">Nema</option>
+							    <option value="1"><spring:message code="has"/></option>
+							    <option value="0"><spring:message code="hasNo"/></option>
 							  </select>
 							</div>
 						</div>
@@ -350,13 +349,13 @@
 		    <div class="modal-content">
 		    	<div class="modal-header">
 		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        	<h4 class="modal-title" id="myModalLabel"><spring:message code="add.Spec"/></h4>
+		        	<h4 class="modal-title" id="myModalLabel"><spring:message code="addSpec"/></h4>
 		      	</div>
 		     	<form>
 		        	<div class="modal-body">
 						<div class="form-group">
 							
-							<label for="nameSpec">Name</label>
+							<label for="nameSpec"><spring:message code="SpecName"/></label>
 					    	<input type="text" maxlength="255" class="form-control" name="nameSpec" id="nameSpec" placeholder="Enter specialty name"/>
 							
 						</div>
@@ -739,6 +738,7 @@ function getSchedule(){
 
 function addSpecialty(wsId){
 	var name = $('#nameSpec').val();
+	
 		$.ajax({
 			url: context + "/worksheet/createSpeciality",
 	    	data: {
@@ -769,7 +769,6 @@ function addClassroom(wsId){
 	//alert(building +" "+ numClassroom +" "+ capacity +" "+ tool +" "+ type);
 	//document.getElementById("newStudentName").value = "";
 	
-
 		$.ajax({
 			url: context + "/worksheet/createClassroom",
 	    	data: {

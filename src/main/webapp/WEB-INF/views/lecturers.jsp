@@ -11,8 +11,8 @@ var allDisciplines = new Array();
 <div class="container-fluid padding-top-20">
 <div class="row">
 		<div class="col-md-1 col-md-offset-1">
-	  		<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
-	    </div>
+			<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100px;height:auto;" onclick="goBack()">
+		</div>
 <div class="col-md-8 main-panel padding-20">
 	<div class="row padding-bottom-20" >
 		<div class="col-md-10">

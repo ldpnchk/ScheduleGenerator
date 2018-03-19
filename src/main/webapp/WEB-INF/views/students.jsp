@@ -77,7 +77,7 @@ var allDisciplines = new Array();
 							  </select>
 							</div>
 							<div class="form-group">
-							  <label for="subGroup">Nomer group</label>
+							  <label for="subGroup"><spring:message code="subGroup"/></label>
 							  <select class="form-control" id="subGroup">
 							    <option value="1">1</option>
 							    <option value="2">2</option>

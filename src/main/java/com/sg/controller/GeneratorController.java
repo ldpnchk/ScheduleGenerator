@@ -32,45 +32,45 @@ import com.sg.service.SpecialtyService;
 @Controller
 @RequestMapping("/generator/")
 public class GeneratorController {
-	
+
 	@Autowired
 	private LessonService lessonService;
-	
+
 	@Autowired
 	private ScheduleService scheduleService;
-	
+
 	@Autowired
 	private SpecialtyService specialtyService;
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/generate/", method = RequestMethod.POST)
-    public String generateAnswer(@RequestParam int id){
+	public String generateAnswer(@RequestParam int id){
 		scheduleService.generate(id);
-        return "success";
-    }
+		return "success";
+	}
 
 	@RequestMapping(value = "/get/{year}/{specialtyId}/{idWorksheet}", method = RequestMethod.GET)
 	public void download(@PathVariable int year, @PathVariable int specialtyId,@PathVariable int idWorksheet, HttpServletResponse response) throws IOException {
 		Map<Lesson, Integer> lessons = lessonService.getAllWithStudentsAmountByWorksheet(idWorksheet);
 		List<Schedule> schedules = scheduleService.getAllByCourseSpecialtyWorksheet(year, specialtyId, idWorksheet);
-    	List<LessonTotal> result = new ArrayList<LessonTotal>();
-    	for (Lesson l : lessons.keySet()){
-    		result.add(new LessonTotal(l, lessons.get(l), findCondition(l.getId(), schedules)));
-    	};
-    	///
-    	String specialty = specialtyService.getById(specialtyId).getName();
-    	//
-    	try{
-    	File file = CreateDocx.create(result, year, specialty);
-    	InputStream is = new FileInputStream(file);
-		
+		List<LessonTotal> result = new ArrayList<LessonTotal>();
+		for (Lesson l : lessons.keySet()){
+			result.add(new LessonTotal(l, lessons.get(l), findCondition(l.getId(), schedules)));
+		};
+		///
+		String specialty = specialtyService.getById(specialtyId).getName();
+		//
+
+		File file = CreateDocx.create(result, year, specialty);
+		InputStream is = new FileInputStream(file);
+
 		// MIME type of the file
 		response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-		
+
 		// Response header
 		response.setHeader("Content-Disposition", "attachment; filename=\""
 				+ file.getName() + "\"");
-		
+
 		// Read from the file and write into the response
 		OutputStream os = response.getOutputStream();
 		byte[] buffer = new byte[1024];
@@ -81,18 +81,15 @@ public class GeneratorController {
 		os.flush();
 		os.close();
 		is.close();
-    	}catch(NullPointerException ex){
-    		// LOL
-    	}
 	}
-	
-    private Condition findCondition(int idLesson, List<Schedule> schedules){
-    	for (Iterator<Schedule> it = schedules.iterator(); it.hasNext(); ) {
-    		Schedule s = it.next();
-            if (s.getLesson().getId() == idLesson)
-                return new Condition(s.getDaytime(), s.getPeriodtime(), s.getClassroom());
-        }
-    	return null;
-    }
+
+	private Condition findCondition(int idLesson, List<Schedule> schedules){
+		for (Iterator<Schedule> it = schedules.iterator(); it.hasNext(); ) {
+			Schedule s = it.next();
+			if (s.getLesson().getId() == idLesson)
+				return new Condition(s.getDaytime(), s.getPeriodtime(), s.getClassroom());
+		}
+		return null;
+	}
 
 }

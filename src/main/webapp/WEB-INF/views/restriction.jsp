@@ -3,8 +3,8 @@
 	<div class="row">
 	
 		<div class="col-md-1 col-md-offset-1">
-	  		<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100%" onclick="goBack()">
-	    </div>
+			<img src="<%=request.getContextPath()%>/resources/img/back.jpg" style="width: 100px;height:auto;" onclick="goBack()">
+		</div>
 	
 		<div class="col-md-8 main-panel padding-bottom-20 padding-left-20 padding-right-20">
 			<h1>

@@ -38,6 +38,7 @@ jQuery(document).ready(function($) {
 		</div>
 	</div>
 </div>
+<div class="row">
 <div class="col-md-4 col-md-offset-4">
 	<c:if test="${param.error == 'true'}">
     	<div class="alert alert-danger">
@@ -49,5 +50,6 @@ jQuery(document).ready(function($) {
 			Click <strong><a href="<c:url value="/registration"/>">here</a></strong> to register
 		</center>
 	</div>
+</div>
 </div>
 <%@include file="footer.jsp"%>
